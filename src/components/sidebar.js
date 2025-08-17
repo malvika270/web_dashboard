@@ -6,7 +6,7 @@ export default async function Sidebar() {
   const isAdmin = await checkRole("admin");
 
   return (
-    <aside className="sidebar p-4 bg-gray-900 text-white h-screen">
+    <aside className="sidebar p-4 bg-gray-900 text-white h-16">
       <ul className="space-y-2">
         <li><Link href="/">🏠 Home</Link></li>
         {isAdmin && <li><Link href="/admin">🛠 Admin</Link></li>}
