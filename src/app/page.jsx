@@ -3,8 +3,12 @@ import {useState,useEffect, use} from 'react';
 import {ref,get} from 'firebase/database';
 import {database} from '../firebase/firebaseConfig';
 //import { clerkClient } from "@clerk/nextjs/dist/types/server";
-import { useUser } from '@clerk/nextjs';
-import Link from 'next/link';
+// import { useUser } from '@clerk/nextjs';
+// import Link from 'next/link';
+// // import {checkRole} from '../../utils/roles/roles';
+// import Sidebar from '../components/sidebar.js';
+
+
 
 
 function page() {
@@ -13,9 +17,9 @@ function page() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sort,setSort]=useState("ascending");
   const [selectedDate, setSelectedDate] = useState("");
-  const {user,isLoaded} = useUser();
+  // const {user,isLoaded} = useUser();
   
-  const role = user?.publicMetadata?.role;
+  // const role = user?.publicMetadata?.role;
  const get_logs = async () => {
     setSearchTerm("");
     try {
@@ -86,10 +90,12 @@ function page() {
   useEffect(() => {
     filterByDate(selectedDate);
   }, [selectedDate]);
-  if (!isLoaded) return;
+  // if (!isLoaded) return;
+  // console.log("User role:", checkRole(role));
   
   return (
       <div>
+      {/* <Sidebar /> */}
   
     <div style={{ padding: "20px", fontFamily: "Arial" }}>
       <h1 style={{ fontSize: "30px", textAlign: "center" }}>Log Viewer</h1>
@@ -150,11 +156,11 @@ function page() {
             backgroundColor: "#456882",
           }}
         >
-          <option value="Ascending">Ascending</option>
-          <option value="Descending">Descending</option>
+          <option value="ascending">Ascending</option>
+          <option value="descending">Descending</option>
         </select>
 
-        <label htmlFor="date" style={{ marginLeft: "20px", color: "black" }}>
+        <label htmlFor="date" style={{ marginLeft: "20px", color: "white" }}>
           Date:
         </label>
         <input
@@ -167,8 +173,8 @@ function page() {
             marginLeft: "10px",
             padding: "5px",
             borderRadius: "4px",
-            border: "1px solid black",
-            color: "black",
+            
+            color: "white",
           }}
         />
       </div>
@@ -223,11 +229,11 @@ function page() {
       </div>
     </div>
     
-    <div style={{ textAlign: "center", marginTop: "20px" }}>
+    {/* <div style={{ textAlign: "center", marginTop: "20px" ,color: "white"}}>
         {role === "admin" &&
         <Link href="/admin"> admin dashboard</Link>
 }
-    </div>
+    </div> */}
       </div>
   )}
 

@@ -1,5 +1,5 @@
 /**
- * @typedef {"admin" | "moderator"} Roles
+ * @typedef {"admin" | "moderator" | "user" } Roles
  */
 
 /**

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ref, push } from "firebase/database";
-import { database } from "../firebase/firebaseConfig";
+import { database } from "../../firebase/firebaseConfig";
 
 export default function AdminDashboard() {
   const [time, setTime] = useState("");
