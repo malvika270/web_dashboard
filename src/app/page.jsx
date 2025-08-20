@@ -12,6 +12,7 @@ import {database} from '../firebase/firebaseConfig';
 
 
 function page() {
+  
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");

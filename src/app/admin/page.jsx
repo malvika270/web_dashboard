@@ -1,12 +1,15 @@
+"use client";
 import React, { useState } from "react";
 import { ref, push } from "firebase/database";
 import { database } from "../../firebase/firebaseConfig";
 
+
 export default function AdminDashboard() {
+  console.log("Admin Dashboard Loaded");
   const [time, setTime] = useState("");
   const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
-  const [UID, setUID] = useState("");
+  const [uid, setUID] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [addUIDForm, setAddUIDForm] = useState(false);
@@ -14,12 +17,12 @@ export default function AdminDashboard() {
   const toggleUIDForm = () => setAddUIDForm((prev) => !prev);
 
   const add_uid = async () => {
-    if (!UID || !name || !time) {
+    if (!uid || !name || !time) {
       alert("Please fill in all fields");
       return;
     }
     const db_reference = ref(database, "logs");
-    await push(db_reference, { UID, name, time });
+    await push(db_reference, { uid, name, time });
     alert("UID added successfully");
     setUID("");
     setName("");
@@ -39,7 +42,7 @@ export default function AdminDashboard() {
         setPassword("");
         setRole("");
       } else {
-        alert("Error adding role");
+        alert("Error adding role"+data.error);
       }
     } catch (error) {
       alert("Server error");
@@ -63,7 +66,7 @@ export default function AdminDashboard() {
             <input
               type="text"
               placeholder="UID"
-              value={UID}
+              value={uid}
               onChange={(e) => setUID(e.target.value)}
               className="border p-2 rounded mr-2"
             />

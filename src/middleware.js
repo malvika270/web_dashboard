@@ -1,15 +1,37 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
-import { NextResponse } from 'next/server'
+import { clerkMiddleware } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
-const isAdminRoute = createRouteMatcher(['/admin(.*)'])
+function isAdminRoute(req) {
+  return req.nextUrl.pathname.startsWith("/admin");
+}
 
 export default clerkMiddleware(async (auth, req) => {
-  // Protect all routes starting with `/admin`
-  if (isAdminRoute(req) && (await auth()).sessionClaims?.metadata?.role !== 'admin') {
-    const url = new URL('/', req.url)
-    return NextResponse.redirect(url)
+  try{
+    const res= await fetch ("/api/debug")
+    if (!res.ok) {
+      throw new Error(`Request failed with status ${res.status}`);}
+    const data = await res.json();
+    console.log("Data from /api/debug:", data);
+    role = data.user?.publicMetadata?.role
+    if (isAdminRoute(req) &&   role !== "admin") {
+      const url = new URL("/", req.url);
+      return NextResponse.redirect(url);
   }
-})
+  }
+    catch (err) {
+    console.error("Fetch error:", err);}
+
+
+  
+  // console.log("Session Claims:", sessionClaims);
+
+  // const role = sessionClaims?.publicMetadata?.role;
+
+
+
+  return NextResponse.next();
+});
+
 
 export const config = {
   matcher: [
